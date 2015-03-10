@@ -1,0 +1,37 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+		 <textarea id="ta" rows="35" cols="50">hi there  </textarea>
+
+		 <br>
+
+
+		type here:
+		<input id="zorar"type="text" name="firstname" >
+	
+
+
+
+	<script>
+
+	var exampleSocket = new WebSocket("ws://127.0.0.1:8080");
+
+	exampleSocket.onopen = function (event) {
+	 // exampleSocket.send("Here's some text that the server is urgently awaiting!"); 
+	}
+
+	exampleSocket.onmessage = function (event) {
+	  console.log(event.data);
+	  document.getElementById("ta").value += '\n'+event.data 
+	}
+
+	document.getElementById("zorar").onkeyup =  function (event) {
+		if (event.keyCode != 13)return;
+	    exampleSocket.send(document.getElementById("zorar").value); 
+	    document.getElementById("zorar").value = ""
+	}
+	</script>
+</body>
+</html>
